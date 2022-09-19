@@ -73,6 +73,8 @@ h6 {
   font-weight: inherit;
 }
 /* ================================== */
+@import url("http://fonts.cdnfonts.com/css/harry-potter");
+
 @keyframes append-animate {
   from {
     transform: scale(0);
