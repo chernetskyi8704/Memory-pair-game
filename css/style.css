@@ -92,8 +92,8 @@ h6 {
 
 body {
   font-family: "Harry Potter", sans-serif;
-  cursor: url(/img/dobbySoc-cursor.png), auto;
-  background: url(/img/backgroundImage.jpg);
+  cursor: url(../img/dobbySoc-cursor.png), auto;
+  background-image: url(../img/backgroundImage.jpg);
   color: #e8e7cb;
   user-select: none;
   opacity: 0.8;
