@@ -73,7 +73,7 @@ h6 {
   font-weight: inherit;
 }
 /* ================================== */
-@import url("http://fonts.cdnfonts.com/css/harry-potter");
+@import url("https://fonts.cdnfonts.com/css/harry-potter");
 
 @keyframes append-animate {
   from {
@@ -93,17 +93,22 @@ h6 {
 }
 
 body {
+  height: 100vh;
   font-family: "Harry Potter", sans-serif;
   cursor: url(../img/dobbySoc-cursor.png), auto;
-  background-image: url(../img/backgroundImage.jpg);
+  background: url(../img/backgroundImage.jpg);
   color: #e8e7cb;
   user-select: none;
   opacity: 0.8;
+  background-position: 0 0;
+  background-size: auto;
+  background-repeat: round;
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
 .wrapper {
   min-height: 100%;
-  overflow: hidden;
 }
 
 .header {
@@ -112,7 +117,7 @@ body {
 }
 
 .main__title {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .main {
@@ -189,11 +194,11 @@ body {
 }
 
 .blink_me {
-  animation: blinker 3.8s linear infinite;
+  animation: blinker 3s linear infinite;
 }
 
 .animated {
-  animation: append-animate 0.6s linear;
+  animation: append-animate 0.8s linear;
 }
 
 .deleted {
@@ -215,7 +220,7 @@ body {
   }
 
   .main__list-items {
-    top: 45px;
+    top: 70px;
   }
 }
 
@@ -230,7 +235,7 @@ body {
   }
 
   .main__list-items {
-    top: 40px;
+    top: 80px;
   }
 
   .list__item {
@@ -249,7 +254,7 @@ body {
   }
 
   .main__list-items {
-    top: 50px;
+    top: 110px;
   }
 
   .list__item {

@@ -6,12 +6,12 @@ const restartGameBlock = document.querySelector(".restart__game");
 const restartButton = document.querySelector(".restart__game-button");
 
 const allImages = [
-  { img: "img/albus-dumbledore.jpg", alt: "Dumbledore" },
-  { img: "img/harry-potter.jpg", alt: "Harry Potter" },
-  { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort" },
-  { img: "img/dobby.jpg", alt: "Dobby" },
-  { img: "img/ron-weasley.jpg", alt: "Ron Weasley" },
-  { img: "img/hermione-granger.jpg", alt: "Hermione Granger" },
+  { img: "img/albus-dumbledore.jpg", alt: "Dumbledore", id: 1 },
+  { img: "img/harry-potter.jpg", alt: "Harry Potter", id: 2 },
+  { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort", id: 3 },
+  { img: "img/dobby.jpg", alt: "Dobby", id: 4 },
+  { img: "img/ron-weasley.jpg", alt: "Ron Weasley", id: 5 },
+  { img: "img/hermione-granger.jpg", alt: "Hermione Granger", id: 6 },
 ];
 
 const addClassForItem = (item, className) => item.classList.add(className);
@@ -48,7 +48,7 @@ startButton.addEventListener("click", () => {
 
 const renderData = () => {
   gameCards.map((card) => {
-    const html = `<li class="list__item">
+    const html = `<li class="list__item" id=${card.id}>
     <div class="front">
       <img src="img/fontImage.jpg" alt="" class="front-img img" />
     </div>
@@ -64,7 +64,10 @@ renderData(gameCards);
 const allCards = document.querySelectorAll(".list__item");
 addClassForEachItem(allCards, "_hide");
 
-const openCard = (targetListItem) => addClassForItem(targetListItem, "_flip");
+const openCard = (targetListItem) => {
+  addClassForItem(targetListItem, "_flip");
+  opened.push(targetListItem);
+};
 
 const closeCard = () => {
   removeClassForEachItem(opened, "_flip");
@@ -91,23 +94,15 @@ let opened = [];
 
 const sameCard = () =>
   setTimeout(() => {
-    if (
-      opened.length === 2 &&
-      opened[0].lastElementChild.firstElementChild.src ===
-        opened[1].lastElementChild.firstElementChild.src
-    ) {
+    if (opened.length === 2 && opened[0].id === opened[1].id) {
       removeCart();
       opened = [];
     }
-  }, 2400);
+  }, 1000);
 
 const diffCard = () =>
   setTimeout(() => {
-    if (
-      opened.length === 2 &&
-      opened[0].lastElementChild.firstElementChild.src !=
-        opened[1].lastElementChild.firstElementChild.src
-    ) {
+    if (opened.length === 2 && opened[0].id != opened[1].id) {
       closeCard();
       opened = [];
     }
@@ -124,14 +119,15 @@ const removeCart = () =>
 
 mainListItems.addEventListener("click", (event) => {
   const target = event.target;
-  const targetListItem = target.parentElement.parentElement;
+  const targetListItem = target.closest(".list__item");
 
   if (target.classList.contains("front-img") && opened.length < 2) {
     openCard(targetListItem);
-    opened.push(targetListItem);
   }
-  diffCard();
-  sameCard();
+  if (opened.length === 2) {
+    diffCard();
+    sameCard();
+  }
 });
 
 restartButton.addEventListener("click", function () {
