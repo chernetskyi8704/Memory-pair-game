@@ -193,17 +193,17 @@ body {
   transform: rotateY(180deg);
 }
 
+._moreOpacity {
+  opacity: 0.4;
+  transition: opacity 2s linear;
+}
+
 .blink_me {
   animation: blinker 3s linear infinite;
 }
 
 .animated {
   animation: append-animate 0.8s linear;
-}
-
-.deleted {
-  transform: translateY(-800px);
-  transition: all 0.7s ease-out;
 }
 
 @media (max-width: 1024px) {
