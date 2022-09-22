@@ -4,14 +4,15 @@ const startButton = document.querySelector(".start__game-button");
 const startGameBlock = document.querySelector(".start__game");
 const restartGameBlock = document.querySelector(".restart__game");
 const restartButton = document.querySelector(".restart__game-button");
+let opened = [];
 
 const allImages = [
-  { img: "img/albus-dumbledore.jpg", alt: "Dumbledore", id: 1 },
-  { img: "img/harry-potter.jpg", alt: "Harry Potter", id: 2 },
-  { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort", id: 3 },
-  { img: "img/dobby.jpg", alt: "Dobby", id: 4 },
-  { img: "img/ron-weasley.jpg", alt: "Ron Weasley", id: 5 },
-  { img: "img/hermione-granger.jpg", alt: "Hermione Granger", id: 6 },
+  { img: "img/albus-dumbledore.jpg", alt: "Dumbledore" },
+  { img: "img/harry-potter.jpg", alt: "Harry Potter" },
+  { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort" },
+  { img: "img/dobby.jpg", alt: "Dobby" },
+  { img: "img/ron-weasley.jpg", alt: "Ron Weasley" },
+  { img: "img/hermione-granger.jpg", alt: "Hermione Granger" },
 ];
 
 const addClassForItem = (item, className) => item.classList.add(className);
@@ -36,19 +37,12 @@ const shuffleAray = (array) => {
   );
 };
 
-const gameCards = [...allImages, ...allImages];
-shuffleAray(gameCards);
+const allGameCards = [...allImages, ...allImages];
+shuffleAray(allGameCards);
 
-startButton.addEventListener("click", () => {
-  addClassForItem(mainListItems, "animated");
-  removeClassForEachItem(allCards, "_hide");
-  addClassForItem(startGameBlock, "_hide");
-  beforeGameStart(allCards);
-});
-
-const renderData = () => {
-  gameCards.map((card) => {
-    const html = `<li class="list__item" id=${card.id}>
+const displayTheCards = () => {
+  allGameCards.map((card) => {
+    const html = `<li class="list__item _hide">
     <div class="front">
       <img src="img/fontImage.jpg" alt="" class="front-img img" />
     </div>
@@ -59,18 +53,15 @@ const renderData = () => {
     mainListItems.insertAdjacentHTML("beforeend", html);
   });
 };
-renderData(gameCards);
+displayTheCards(allGameCards);
 
 const allCards = document.querySelectorAll(".list__item");
-addClassForEachItem(allCards, "_hide");
 
 const openCard = (targetListItem) => {
   addClassForItem(targetListItem, "_flip");
   opened.push(targetListItem);
-};
 
-const closeCard = () => {
-  removeClassForEachItem(opened, "_flip");
+  opened.length === 2 ? diffCard() : sameCard();
 };
 
 const ifAllCardsAreFlipped = () => {
@@ -82,7 +73,8 @@ const ifAllCardsAreFlipped = () => {
   }
 };
 
-const beforeGameStart = function (allCards) {
+const beforeGameStart = () => {
+  const allCards = document.querySelectorAll(".list__item");
   addClassForEachItem(allCards, "_flip");
 
   setTimeout(() => {
@@ -90,52 +82,61 @@ const beforeGameStart = function (allCards) {
   }, 2000);
 };
 
-let opened = [];
-
 const sameCard = () =>
   setTimeout(() => {
-    if (opened.length === 2 && opened[0].id === opened[1].id) {
-      removeCart();
+    if (
+      opened.length === 2 &&
+      opened[0].lastElementChild.firstElementChild.src ===
+        opened[1].lastElementChild.firstElementChild.src
+    ) {
+      opened.forEach((card) => {
+        addClassForItem(card, "deleted");
+        setTimeout(() => {
+          card.remove();
+          ifAllCardsAreFlipped();
+        }, 1500);
+      });
       opened = [];
     }
-  }, 1000);
+  }, 1500);
 
 const diffCard = () =>
   setTimeout(() => {
-    if (opened.length === 2 && opened[0].id != opened[1].id) {
-      closeCard();
+    if (
+      opened.length === 2 &&
+      opened[0].lastElementChild.firstElementChild.src !=
+        opened[1].lastElementChild.firstElementChild.src
+    ) {
+      removeClassForEachItem(opened, "_flip");
       opened = [];
     }
   }, 1000);
 
-const removeCart = () =>
-  opened.forEach((card) => {
-    addClassForItem(card, "deleted");
-    setTimeout(function () {
-      card.remove();
-      ifAllCardsAreFlipped();
-    }, 1500);
-  });
+startButton.addEventListener("click", () => {
+  addClassForItem(mainListItems, "animated");
+  removeClassForEachItem(allCards, "_hide");
+  addClassForItem(startGameBlock, "_hide");
+  beforeGameStart();
+});
+
+restartButton.addEventListener("click", () => {
+  removeClassForItem(restartGameBlock, "animated");
+  addClassForItem(restartGameBlock, "_hide");
+  addClassForItem(mainListItems, "animated");
+  displayTheCards(allGameCards);
+  removeClassForEachItem(allCards, "deleted");
+  beforeGameStart();
+});
 
 mainListItems.addEventListener("click", (event) => {
   const target = event.target;
   const targetListItem = target.closest(".list__item");
 
-  if (target.classList.contains("front-img") && opened.length < 2) {
+  if (
+    target.classList.contains("front-img") &&
+    opened.length < 2 &&
+    opened[0] != targetListItem
+  ) {
     openCard(targetListItem);
   }
-  if (opened.length === 2) {
-    diffCard();
-    sameCard();
-  }
-});
-
-restartButton.addEventListener("click", function () {
-  const allCards = document.querySelectorAll(".list__item");
-  removeClassForItem(restartGameBlock, "animated");
-  addClassForItem(restartGameBlock, "_hide");
-  addClassForItem(mainListItems, "animated");
-  renderData(gameCards);
-  removeClassForEachItem(allCards, "deleted");
-  beforeGameStart(allCards);
 });
