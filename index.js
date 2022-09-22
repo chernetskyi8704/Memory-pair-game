@@ -8,11 +8,11 @@ let opened = [];
 
 const allImages = [
   { img: "img/albus-dumbledore.jpg", alt: "Dumbledore" },
-  { img: "img/harry-potter.jpg", alt: "Harry Potter" },
-  { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort" },
-  { img: "img/dobby.jpg", alt: "Dobby" },
-  { img: "img/ron-weasley.jpg", alt: "Ron Weasley" },
-  { img: "img/hermione-granger.jpg", alt: "Hermione Granger" },
+  // { img: "img/harry-potter.jpg", alt: "Harry Potter" },
+  // { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort" },
+  // { img: "img/dobby.jpg", alt: "Dobby" },
+  // { img: "img/ron-weasley.jpg", alt: "Ron Weasley" },
+  // { img: "img/hermione-granger.jpg", alt: "Hermione Granger" },
 ];
 
 const addClassForItem = (item, className) => item.classList.add(className);
@@ -42,7 +42,7 @@ shuffleAray(allGameCards);
 
 const displayTheCards = () => {
   allGameCards.map((card) => {
-    const html = `<li class="list__item _hide">
+    const html = `<li class="list__item ">
     <div class="front">
       <img src="img/fontImage.jpg" alt="" class="front-img img" />
     </div>
@@ -56,6 +56,7 @@ const displayTheCards = () => {
 displayTheCards(allGameCards);
 
 const allCards = document.querySelectorAll(".list__item");
+addClassForEachItem(allCards, "_hide");
 
 const openCard = (targetListItem) => {
   addClassForItem(targetListItem, "_flip");
