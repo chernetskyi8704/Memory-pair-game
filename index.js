@@ -8,11 +8,11 @@ let opened = [];
 
 const allImages = [
   { img: "img/albus-dumbledore.jpg", alt: "Dumbledore" },
-  // { img: "img/harry-potter.jpg", alt: "Harry Potter" },
-  // { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort" },
-  // { img: "img/dobby.jpg", alt: "Dobby" },
-  // { img: "img/ron-weasley.jpg", alt: "Ron Weasley" },
-  // { img: "img/hermione-granger.jpg", alt: "Hermione Granger" },
+  { img: "img/harry-potter.jpg", alt: "Harry Potter" },
+  { img: "img/lord-voldemort.jpg", alt: "Lord Voldemort" },
+  { img: "img/dobby.jpg", alt: "Dobby" },
+  { img: "img/ron-weasley.jpg", alt: "Ron Weasley" },
+  { img: "img/hermione-granger.jpg", alt: "Hermione Granger" },
 ];
 
 const addClassForItem = (item, className) => item.classList.add(className);
